@@ -1,0 +1,42 @@
+<!--
+ * @Author: 曹雪原
+ * @since: 2020-01-09 15:32:59
+ * @lastTime     : 2020-01-13 16:41:28
+ * @LastAuthor   : 曹雪原
+ * @文件相对于项目的路径: /cardTicketCenter/src/app/app.component.html
+ * @message: 
+ -->
+<nz-layout class="app-layout">
+  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
+    <div class="sidebar-logo">
+      <h1>卡券中心</h1>
+      <!-- <a href="https://ng.ant.design/" target="_blank">
+        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo">
+        <h1>卡券中心</h1>
+      </a> -->
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item routerLinkActive nzMatchRouter>
+        <a routerLink="/coupon/create"><i nz-icon nzType="credit-card" nzTheme="outline"></i><span>创建卡券</span></a>
+      </li>
+      <li nz-menu-item routerLinkActive nzMatchRouter>
+        <a routerLink="/coupon/list"><i nz-icon nzType="unordered-list" nzTheme="outline"></i><span>卡券列表</span></a>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

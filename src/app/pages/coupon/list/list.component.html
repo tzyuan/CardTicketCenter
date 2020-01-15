@@ -1,0 +1,72 @@
+<!--
+ * @Author: 曹雪原
+ * @since: 2020-01-10 13:27:30
+ * @lastTime     : 2020-01-13 16:40:47
+ * @LastAuthor   : 曹雪原
+ * @文件相对于项目的路径: /cardTicketCenter/src/app/pages/coupon/list/list.component.html
+ * @message: 
+ -->
+<div class="table-search-filter">
+    <div nz-form nzLayout="inline">
+        <nz-form-item>
+            <nz-form-label>平台</nz-form-label>
+            <nz-form-control>
+                <nz-radio-group [(ngModel)]="search.pt" nzButtonStyle="solid" (ngModelChange)="tableFilter()">
+                    <label nz-radio-button [nzValue]="null">全部</label>
+                    <label nz-radio-button nzValue="微信">微信</label>
+                    <label nz-radio-button nzValue="支付宝">支付宝</label>
+                </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-label>状态</nz-form-label>
+            <nz-form-control>
+                <nz-radio-group [(ngModel)]="search.status" nzButtonStyle="solid" (ngModelChange)="tableFilter()">
+                    <label nz-radio-button [nzValue]="null">全部</label>
+                    <label *ngFor="let enum of config.statusEnum" nz-radio-button [nzValue]="enum">{{enum}}</label>
+                </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+
+</div>
+<nz-table #nzTable [nzData]="displayCouponList" nzShowPagination="false" nzFrontPagination="false">
+    <thead>
+        <tr>
+            <th>代金券名称</th>
+            <th>平台</th>
+            <th>状态</th>
+            <th>面额</th>
+            <th>已发送数量</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of nzTable.data;let i=index;">
+            <td>{{item.coupon_name}}</td>
+            <td>{{item.pt}}</td>
+            <td>
+                <nz-tag [nzColor]="config.status[item.status]">{{item.status}}</nz-tag>
+            </td>
+            <td>{{item.coupon_value| currency:'CNY':'symbol-narrow'}}</td>
+            <td>{{item.is_send_num}}/{{item.max_quota}}</td>
+            <td>
+                <ng-container *ngIf="item.pt==='支付宝'">
+                    <ng-container *ngIf="item.status==='未激活'">
+                        <a>激活</a>
+                        <nz-divider nzType="vertical"></nz-divider>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="item.status==='已激活'">
+                    <a>发放</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                </ng-container>
+                <ng-container *ngIf="item.status!=='已过期'&&item.status!=='未激活'">
+                    <a>禁用</a>
+                    <nz-divider nzType="vertical"></nz-divider>
+                </ng-container>
+                <a [queryParams]="{id: i}" [routerLink]="['/coupon/detail']">详情</a>
+            </td>
+        </tr>
+    </tbody>
+</nz-table>

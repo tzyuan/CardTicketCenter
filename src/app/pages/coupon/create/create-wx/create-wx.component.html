@@ -1,0 +1,45 @@
+<!--
+ * @Author: 曹雪原
+ * @since: 2020-01-14 13:57:15
+ * @lastTime     : 2020-01-14 14:05:54
+ * @LastAuthor   : 曹雪原
+ * @文件相对于项目的路径: /cardTicketCenter/src/app/pages/coupon/create/create-wx/create-wx.component.html
+ * @message: 
+ -->
+<nz-alert class="mb" nzType="info" [nzMessage]="weixinAlert"></nz-alert>
+<ng-template #weixinAlert>
+    微信优惠券需要去<a target="_blank" href="https://mp.weixin.qq.com/">微信商户号后台</a>自行创建再导入本平台
+</ng-template>
+<div class="card-info-box mb">
+    <div class="mb" nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+            <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+                <input nz-input type="text" placeholder="请输入优惠券批次" [(ngModel)]="couponStockId">
+            </nz-input-group>
+            <ng-template #suffixIconButton>
+                <button nz-button nzType="primary" nzSearch [nzLoading]="loading" (click)="search()">
+                    <i nz-icon nzType="search"></i>查询</button>
+            </ng-template>
+        </div>
+    </div>
+    <!-- 表单 -->
+    <div nz-row nzGutter="8" class="steps-content">
+        <div *ngIf="data" nz-col nzOffset="6" nzSpan="12">
+            <nz-descriptions [nzColumn]="1">
+                <nz-descriptions-item nzTitle='代金券批次ID'>{{data.coupon_stock_id}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='代金券名称'>{{data.coupon_name}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='代金券面额'>{{data.coupon_value| currency:'CNY':'symbol-narrow'}}
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle='批次状态'>{{data.coupon_stock_status}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='代金券数量'>{{data.coupon_total}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='生效开始时间'>{{data.begin_time}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='生效结束时间'>{{data.end_time}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='创建时间'>{{data.create_time}}</nz-descriptions-item>
+            </nz-descriptions>
+            <div>
+                <button nz-button nzType="primary">
+                    <i nz-icon spin type="save"></i>保存</button>
+            </div>
+        </div>
+    </div>
+</div>

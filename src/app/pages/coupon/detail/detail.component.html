@@ -1,0 +1,43 @@
+<!--
+ * @Author: 曹雪原
+ * @since: 2020-01-13 16:36:36
+ * @lastTime     : 2020-01-14 14:07:24
+ * @LastAuthor   : 曹雪原
+ * @文件相对于项目的路径: /cardTicketCenter/src/app/pages/coupon/detail/detail.component.html
+ * @message: 
+ -->
+<nz-page-header nzBackIcon nzTitle="优惠券详情"></nz-page-header>
+<div class="coupon-content">
+    <nz-descriptions [nzColumn]="3">
+        <nz-descriptions-item nzTitle='代金券批次ID'>{{coupon.coupon_stock_id}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='平台'>{{coupon.pt}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='代金券名称'>{{coupon.coupon_name}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='代金券面额'>{{coupon.coupon_value| currency:'CNY':'symbol-narrow'}}
+        </nz-descriptions-item>
+        <nz-descriptions-item nzTitle='状态'>{{coupon.coupon_stock_status}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='已发放数量' [nzSpan]="2">{{coupon.is_send_num}}/{{coupon.max_quota}}
+        </nz-descriptions-item>
+        <nz-descriptions-item [nzSpan]="3" nzTitle='有效时间'>{{coupon.begin_time}} ~ {{coupon.end_time}}
+        </nz-descriptions-item>
+    </nz-descriptions>
+</div>
+<nz-table #nzTable [nzData]="userList" [nzPageSize]="10">
+    <thead>
+        <tr>
+            <th>用户名称</th>
+            <th>领用时间</th>
+            <th>领取途径</th>
+            <th>使用情况</th>
+            <th>使用时间</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of nzTable.data">
+            <td>{{i.name}}</td>
+            <td>{{i.getTime}}</td>
+            <td>{{i.from}}</td>
+            <td>{{i.status}}</td>
+            <td>{{i.useDate}}</td>
+        </tr>
+    </tbody>
+</nz-table>

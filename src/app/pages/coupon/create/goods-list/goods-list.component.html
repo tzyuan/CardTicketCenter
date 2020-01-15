@@ -1,0 +1,20 @@
+<nz-table #nzTable [nzData]="displayGoodsData" [nzPageSize]="10">
+    <thead>
+        <tr>
+            <th nzShowCheckbox [(nzChecked)]="isAllDisplayDataChecked" [nzIndeterminate]="isIndeterminate"
+                (nzCheckedChange)="checkAll($event)"></th>
+            <th>名称</th>
+            <th nzShowFilter [nzFilterMultiple]="true" [nzFilters]="listOfGoodsClass" (nzFilterChange)="filter($event)">
+                类别</th>
+            <th>价格</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let i of nzTable.data">
+            <td nzShowCheckbox [(nzChecked)]="mapOfCheckedId[i.id]" (nzCheckedChange)="refreshStatus()"></td>
+            <td>{{i.goods_name}}</td>
+            <td>{{i.goods_class}}</td>
+            <td>{{ i.goods_price | currency:'CNY':'symbol-narrow' }}</td>
+        </tr>
+    </tbody>
+</nz-table>

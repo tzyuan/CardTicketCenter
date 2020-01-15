@@ -1,0 +1,112 @@
+<nz-steps [nzCurrent]="steps.index">
+    <nz-step nzTitle="基础规则" nzDescription=""></nz-step>
+    <nz-step nzTitle="其他规则" nzDescription=""></nz-step>
+    <nz-step nzTitle="确认创建" nzDescription=""></nz-step>
+</nz-steps>
+<div nz-row nzGutter="8" class="steps-content">
+    <div nz-col nzOffset="6" nzSpan="12">
+        <div *ngIf="steps.index===0">
+            <form nz-form [formGroup]="form1" nzLayout="horizontal">
+                <nz-form-item>
+                    <nz-form-label nzSpan="6" nzRequired>代金券名称</nz-form-label>
+                    <nz-form-control nzSpan="14" nzErrorTip="名称必填">
+                        <input nz-input formControlName="coupon_name" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzSpan="6" nzRequired>面额</nz-form-label>
+                    <nz-form-control nzSpan="14" nzErrorTip="面额必填">
+                        <input nz-input formControlName="coupon_value" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzSpan="6">使用门槛</nz-form-label>
+                    <nz-form-control nzSpan="14">
+                        <input nz-input formControlName="coupon_mininumn" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzSpan="6" nzRequired>可用时间</nz-form-label>
+                    <nz-form-control nzSpan="14" nzErrorTip="可用时间必填">
+                        <nz-range-picker formControlName="coupon_time" name="value" nzShowTime>
+                        </nz-range-picker>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzSpan="6">使用说明</nz-form-label>
+                    <nz-form-control nzSpan="14">
+                        <textarea nz-input formControlName="coupon_explain" [nzAutosize]="{ minRows: 3, maxRows: 6 }"
+                            placeholder=""></textarea>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control nzOffset="6" nzSpan="14">
+                        <button nz-button nzType="primary" (click)="steps.next(form1,1)">下一步</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        <div *ngIf="steps.index===1">
+            <form nz-form [formGroup]="form2" nzLayout="horizontal">
+                <nz-form-item>
+                    <nz-form-label nzSpan="6" nzRequired>用户可领个数</nz-form-label>
+                    <nz-form-control nzSpan="14" nzExtra="0表示可领取多次">
+                        活动期间每个用户可领取<nz-input-number style="margin: 0 4px;" formControlName="max_quota" [nzMin]="0"
+                            [nzStep]="1">
+                        </nz-input-number>个
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzSpan="6">发放总上限</nz-form-label>
+                    <nz-form-control nzSpan="14" nzExtra="0表示优惠券发放数量不设上限">
+                        <nz-input-number style="margin-right: 4px;" formControlName="max_send_num" [nzMin]="0"
+                            [nzStep]="1">
+                        </nz-input-number>个
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-label nzSpan="6">可用产品</nz-form-label>
+                    <nz-form-control nzSpan="14" nzExtra="选择可以使用优惠券的产品,默认全部产品可用">
+                        <button nz-button nzType="default" (click)="selectGdoos()">
+                            {{goodsId.length>0?'已选择('+goodsId.length+')个产品':'选择产品'}}</button>
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control nzOffset="6" nzSpan="14">
+                        <button nz-button nzType="default" (click)="steps.index=0;">上一步</button>
+                        <button nz-button style="margin-left: 8px;" nzType="primary"
+                            (click)="steps.next(form2,2)">下一步</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </div>
+        <div *ngIf="steps.index===2">
+            <nz-descriptions [nzColumn]="1">
+                <nz-descriptions-item nzTitle='代金券名称'>{{form1.value.coupon_name}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='代金券面额'>
+                    {{form1.value.coupon_value | currency:'CNY':'symbol-narrow'}}
+                </nz-descriptions-item>
+                <nz-descriptions-item *ngIf="form1.value.coupon_mininumn" nzTitle='使用门槛'>
+                    订单满{{form1.value.coupon_mininumn}}元后可使用本优惠券</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='可用产品'>{{goodsId.length>0?'已选择('+goodsId.length+')个产品':'全部产品'}}
+                    <a style="margin-left: 8px;" *ngIf="goodsId.length>0">查看</a>
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle='生效开始时间'>
+                    {{(form1.value.coupon_time?form1.value.coupon_time[0]:'') |date:'yyyy-MM-dd HH:mm:ss'}}
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle='生效结束时间'>
+                    {{(form1.value.coupon_time?form1.value.coupon_time[1]:'') |date:'yyyy-MM-dd HH:mm:ss'}}
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle='使用说明'>{{form1.value.coupon_explain}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='用户可领数'>每个用户可领取{{form2.value.max_quota}}次本优惠券
+                </nz-descriptions-item>
+                <nz-descriptions-item nzTitle='最大发放数量'>{{form2.value.max_send_num}}</nz-descriptions-item>
+            </nz-descriptions>
+            <div>
+                <button nz-button nzType="default" (click)="steps.index=1;">上一步</button>
+                <button nz-button style="margin-left: 8px;" nzType="primary">
+                    <i nz-icon spin type="save"></i>保存</button>
+            </div>
+        </div>
+    </div>
+</div>

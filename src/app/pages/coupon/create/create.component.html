@@ -1,0 +1,46 @@
+<!--
+ * @Author: 曹雪原
+ * @since: 2020-01-09 15:56:19
+ * @lastTime     : 2020-01-13 12:11:23
+ * @LastAuthor   : 曹雪原
+ * @文件相对于项目的路径: /cardTicketCenter/src/app/pages/create/create/create.component.html
+ * @message: 
+ -->
+<h2 nz-title>创建卡券</h2>
+
+<h4 nz-title>选择平台</h4>
+<div class="mb">
+    <nz-radio-group [(ngModel)]="pingtai" [nzButtonStyle]="'solid'">
+        <label nz-radio-button *ngFor="let item of pingtaiEnum;let i=index;" [nzValue]="item">{{item}}</label>
+    </nz-radio-group>
+</div>
+
+<h4 nz-title>编辑详情</h4>
+<!-- 微信 -->
+<div [@pingtaiChange]="pingtai==='微信'?'in':'out'">
+    <ng-container *ngIf="pingtai==='微信'">
+        <app-coupon-create-wx></app-coupon-create-wx>
+    </ng-container>
+</div>
+
+<!-- 支付宝 -->
+<div [@pingtaiChange]="pingtai==='支付宝'?'in':'out'">
+    <ng-container *ngIf="pingtai==='支付宝'">
+        <app-coupon-create-alipay></app-coupon-create-alipay>
+    </ng-container>
+</div>
+
+<!-- b2b -->
+<div [@pingtaiChange]="pingtai==='B2B'?'in':'out'">
+    <ng-container *ngIf="pingtai==='B2B'">
+        <app-coupon-create-b2b></app-coupon-create-b2b>
+    </ng-container>
+</div>
+<!-- UP卡 -->
+<div [@pingtaiChange]="pingtai==='UP卡'?'in':'out'">
+    <ng-container *ngIf="pingtai==='UP卡'">
+        <div class="card-info-box">
+            UP卡
+        </div>
+    </ng-container>
+</div>
