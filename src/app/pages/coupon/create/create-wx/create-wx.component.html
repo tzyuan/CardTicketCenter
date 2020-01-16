@@ -26,12 +26,12 @@
     <div nz-row nzGutter="8" class="steps-content">
         <div *ngIf="data" nz-col nzOffset="6" nzSpan="12">
             <nz-descriptions [nzColumn]="1">
-                <nz-descriptions-item nzTitle='代金券批次ID'>{{data.coupon_stock_id}}</nz-descriptions-item>
-                <nz-descriptions-item nzTitle='代金券名称'>{{data.coupon_name}}</nz-descriptions-item>
-                <nz-descriptions-item nzTitle='代金券面额'>{{data.coupon_value| currency:'CNY':'symbol-narrow'}}
+                <nz-descriptions-item nzTitle='优惠券批次ID'>{{data.coupon_stock_id}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='优惠券名称'>{{data.coupon_name}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='优惠券面额'>{{data.coupon_value| currency:'CNY':'symbol-narrow'}}
                 </nz-descriptions-item>
                 <nz-descriptions-item nzTitle='批次状态'>{{data.coupon_stock_status}}</nz-descriptions-item>
-                <nz-descriptions-item nzTitle='代金券数量'>{{data.coupon_total}}</nz-descriptions-item>
+                <nz-descriptions-item nzTitle='优惠券数量'>{{data.coupon_total}}</nz-descriptions-item>
                 <nz-descriptions-item nzTitle='生效开始时间'>{{data.begin_time}}</nz-descriptions-item>
                 <nz-descriptions-item nzTitle='生效结束时间'>{{data.end_time}}</nz-descriptions-item>
                 <nz-descriptions-item nzTitle='创建时间'>{{data.create_time}}</nz-descriptions-item>

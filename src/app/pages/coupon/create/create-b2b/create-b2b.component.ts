@@ -1,3 +1,11 @@
+/*
+ * @Author: 曹雪原
+ * @since: 2020-01-14 14:02:33
+ * @lastTime     : 2020-01-16 12:24:09
+ * @LastAuthor   : 曹雪原
+ * @文件相对于项目的路径: /CardTicketCenter/src/app/pages/coupon/create/create-b2b/create-b2b.component.ts
+ * @message:
+ */
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { NzModalService } from 'ng-zorro-antd';
@@ -30,10 +38,11 @@ export class CreateB2bComponent implements OnInit {
     }
   };
   form1 = this.fb.group({
-    coupon_name: [null, [Validators.required]],
-    coupon_value: [null, [Validators.required, Validators.min(0)]],
+    coupon_name: ['测试优惠券', [Validators.required]],
+    coupon_type: ['代金券', Validators.required],
+    coupon_value: [0, [Validators.required, Validators.min(0)]],
     coupon_mininumn: [0, [Validators.required]],
-    coupon_time: [null, [Validators.required]],
+    coupon_time: [[new Date('2020-01-01'), new Date('2020-12-31')], [Validators.required]],
     coupon_explain: [null],
   });
   form2 = this.fb.group({
@@ -62,6 +71,9 @@ export class CreateB2bComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.form1.get('coupon_type').valueChanges.subscribe(res => {
+      this.form1.get('coupon_value').setValue(0);
+    });
   }
 
 }

@@ -1,7 +1,7 @@
 <!--
  * @Author: 曹雪原
  * @since: 2020-01-09 15:56:19
- * @lastTime     : 2020-01-13 12:11:23
+ * @lastTime     : 2020-01-16 10:02:57
  * @LastAuthor   : 曹雪原
  * @文件相对于项目的路径: /cardTicketCenter/src/app/pages/create/create/create.component.html
  * @message: 
@@ -31,8 +31,8 @@
 </div>
 
 <!-- b2b -->
-<div [@pingtaiChange]="pingtai==='B2B'?'in':'out'">
-    <ng-container *ngIf="pingtai==='B2B'">
+<div [@pingtaiChange]="pingtai==='自有平台'?'in':'out'">
+    <ng-container *ngIf="pingtai==='自有平台'">
         <app-coupon-create-b2b></app-coupon-create-b2b>
     </ng-container>
 </div>

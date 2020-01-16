@@ -43,7 +43,7 @@ export class ListComponent implements OnInit {
       const status = parseInt(`${Math.random() * (2 - 0 + 1) + 0}`, 10);
       this.displayCouponList = this.couponList = [...this.couponList,
       {
-        coupon_name: '测试代金券' + count,
+        coupon_name: '测试优惠券' + count,
         pt: parseInt(`${Math.random() * 10}`, 10) > 5 ? '微信' : '支付宝',
         status: this.config.statusEnum[status],
         coupon_value: parseInt(`${Math.random() * 50}`, 10),

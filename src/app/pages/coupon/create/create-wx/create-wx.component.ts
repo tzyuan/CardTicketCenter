@@ -24,11 +24,11 @@ export class CreateWxComponent implements OnInit {
     this.loading = true;
     setTimeout(() => {
       this.data = {
-        coupon_stock_id: this.couponStockId, // 代金券批次ID
-        coupon_name: '100元优惠券', // 代金券名称
-        coupon_value: 100, // 代金券面额
+        coupon_stock_id: this.couponStockId, // 优惠券批次ID
+        coupon_name: '100元优惠券', // 优惠券名称
+        coupon_value: 100, // 优惠券面额
         coupon_stock_status: 1, // 批次状态： 1-未激活；2-审批中；4-已激活；8-已作废；16-中止发放；
-        coupon_total: 100, // 代金券数量
+        coupon_total: 100, // 优惠券数量
         begin_time: 1234567890, // 生效开始时间 格式为时间戳
         end_time: 1234567890, // 生效结束时间 格式为时间戳
         create_time: 1234567890, // 创建时间 格式为时间戳

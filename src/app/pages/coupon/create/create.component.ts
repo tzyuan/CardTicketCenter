@@ -32,7 +32,7 @@ export class CreateComponent implements OnInit {
   ) { }
 
   pingtai = '微信';
-  pingtaiEnum = ['微信', '支付宝', 'B2B', 'UP卡'];
+  pingtaiEnum = ['微信', '支付宝', '自有平台', 'UP卡'];
 
   ngOnInit() {
   }

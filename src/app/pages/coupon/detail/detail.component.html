@@ -1,7 +1,7 @@
 <!--
  * @Author: 曹雪原
  * @since: 2020-01-13 16:36:36
- * @lastTime     : 2020-01-14 14:07:24
+ * @lastTime     : 2020-01-16 12:43:41
  * @LastAuthor   : 曹雪原
  * @文件相对于项目的路径: /cardTicketCenter/src/app/pages/coupon/detail/detail.component.html
  * @message: 
@@ -9,10 +9,11 @@
 <nz-page-header nzBackIcon nzTitle="优惠券详情"></nz-page-header>
 <div class="coupon-content">
     <nz-descriptions [nzColumn]="3">
-        <nz-descriptions-item nzTitle='代金券批次ID'>{{coupon.coupon_stock_id}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='优惠券批次ID'>{{coupon.coupon_stock_id}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle='平台'>{{coupon.pt}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle='代金券名称'>{{coupon.coupon_name}}</nz-descriptions-item>
-        <nz-descriptions-item nzTitle='代金券面额'>{{coupon.coupon_value| currency:'CNY':'symbol-narrow'}}
+        <nz-descriptions-item nzTitle='优惠券名称'>{{coupon.coupon_name}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='优惠券类型'>{{coupon.coupon_type}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='优惠券面额'>{{coupon.coupon_value| currency:'CNY':'symbol-narrow'}}
         </nz-descriptions-item>
         <nz-descriptions-item nzTitle='状态'>{{coupon.coupon_stock_status}}</nz-descriptions-item>
         <nz-descriptions-item nzTitle='已发放数量' [nzSpan]="2">{{coupon.is_send_num}}/{{coupon.max_quota}}
@@ -21,13 +22,29 @@
         </nz-descriptions-item>
     </nz-descriptions>
 </div>
-<nz-table #nzTable [nzData]="userList" [nzPageSize]="10">
+<div class="table-search-filter">
+    <div nz-form nzLayout="inline">
+        <nz-form-item>
+            <nz-form-label>核销状态</nz-form-label>
+            <nz-form-control>
+                <nz-radio-group [(ngModel)]="search.status" nzButtonStyle="solid" (ngModelChange)="tableFilter()">
+                    <label nz-radio-button [nzValue]="null">全部</label>
+                    <label nz-radio-button nzValue="已核销">已核销</label>
+                    <label nz-radio-button nzValue="未核销">未核销</label>
+                </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+    </div>
+</div>
+<nz-table #nzTable [nzData]="displayUserList" [nzPageSize]="10">
     <thead>
         <tr>
             <th>用户名称</th>
             <th>领用时间</th>
             <th>领取途径</th>
-            <th>使用情况</th>
+            <th>核销状态</th>
+            <th>使用场景</th>
+            <th>订单编号</th>
             <th>使用时间</th>
         </tr>
     </thead>
@@ -36,8 +53,25 @@
             <td>{{i.name}}</td>
             <td>{{i.getTime}}</td>
             <td>{{i.from}}</td>
-            <td>{{i.status}}</td>
+            <td>
+                <nz-tag *ngIf="i.status==='已核销'" nzColor="magenta">{{i.status}}</nz-tag>
+                <nz-tag *ngIf="i.status!=='已核销'">{{i.status}}</nz-tag>
+            </td>
+            <td>{{i.to}}</td>
+            <td><a (click)="visible=true;">{{i.order_no}}</a></td>
             <td>{{i.useDate}}</td>
         </tr>
     </tbody>
 </nz-table>
+
+<nz-drawer [nzWidth]="500" [nzClosable]="false" [nzVisible]="visible" nzPlacement="right" nzTitle="订单详情"
+    (nzOnClose)="visible=false;">
+    <nz-descriptions [nzColumn]="1">
+        <nz-descriptions-item nzTitle='订单编号'>2019120500000045</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='产品'>冰红茶</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='订单金额'>{{5|currency:'CNY':'symbol-narrow'}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='优惠金额'>{{5|currency:'CNY':'symbol-narrow'}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='实付金额'>{{0|currency:'CNY':'symbol-narrow'}}</nz-descriptions-item>
+        <nz-descriptions-item nzTitle='购买时间'>2020-01-05 23:23:23</nz-descriptions-item>
+    </nz-descriptions>
+</nz-drawer>
